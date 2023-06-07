@@ -10,29 +10,27 @@ class CocktailRecipe < ApplicationRecord
 
   scope :search, ->(search_value) { where("cocktail_recipes.name ILIKE '%#{search_value}%'") }
 
-  def self.as_json(options = {})
+  def collective_json(options = {})
     {
-      drinks: self.all.map do |cocktail_recipe|
-        {
-          id: cocktail_recipe.id,
-          name: cocktail_recipe.name.to_s,
-          category: cocktail_recipe.category.to_s,
-          image: cocktail_recipe.image_url
-        }
-      end
+      id: id,
+      name: name.to_s,
+      category: category.to_s,
+      image: image_url
     }
   end
 
-  def as_json(options = {})
+  def individual_json(options = {})
     {
       drinks: [
-        id: id,
-        name: name,
-        category: category.to_s,
-        container: container.to_s,
-        instructions: instructions,
-        image: image_url,
-        ingredients: ingredient_measures.as_json(options)
+        {
+          id: id,
+          name: name,
+          category: category.to_s,
+          container: container.to_s,
+          instructions: instructions,
+          image: image_url,
+          ingredients: ingredient_measures.as_json(options)
+        }
       ]
     }
   end
