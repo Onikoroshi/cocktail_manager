@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+valid:
+  name: Van Vleet
+  category: valid
+  container: valid
+  instructions: Shake all ingredients with ice, strain into an old-fashioned glass over ice cubes, and serve.
+  image_url: https://www.thecocktaildb.com/images/media/drink/fgq2bl1492975771.jpg
+#
+# two:
+#   name: MyString
+#   category: two
+#   container: two
+#   instructions: MyText
+#   image_url: MyText

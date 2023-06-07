@@ -1,7 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-#
+
 valid:
-  name: Old-fashioned glass
-#
-# two:
-#   name: MyString
+  name: Lemonade
+  measurement: 1 oz
+  cocktail_recipe: valid

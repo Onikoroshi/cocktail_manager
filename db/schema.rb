@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_025336) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_034954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,10 +46,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_025336) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cocktail_recipes", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.bigint "container_id", null: false
+    t.text "instructions"
+    t.text "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_cocktail_recipes_on_category_id"
+    t.index ["container_id"], name: "index_cocktail_recipes_on_container_id"
+  end
+
   create_table "containers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "ingredient_measures", force: :cascade do |t|
+    t.string "name"
+    t.string "measurement"
+    t.bigint "cocktail_recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cocktail_recipe_id"], name: "index_ingredient_measures_on_cocktail_recipe_id"
+  end
+
+  add_foreign_key "cocktail_recipes", "categories"
+  add_foreign_key "cocktail_recipes", "containers"
+  add_foreign_key "ingredient_measures", "cocktail_recipes"
 end

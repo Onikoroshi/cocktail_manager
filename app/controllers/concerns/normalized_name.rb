@@ -10,6 +10,7 @@ module NormalizedName extend ActiveSupport::Concern
 
     private
 
+    # Refactor opportunity: make this smarter to disregard things like dashes, words squished together, etc.
     def normalize_name
       self.name = name.to_s.downcase
     end
