@@ -6,10 +6,17 @@ valid:
   container: valid
   instructions: Shake all ingredients with ice, strain into an old-fashioned glass over ice cubes, and serve.
   image_url: https://www.thecocktaildb.com/images/media/drink/fgq2bl1492975771.jpg
-#
-# two:
-#   name: MyString
-#   category: two
-#   container: two
-#   instructions: MyText
-#   image_url: MyText
+
+two:
+  name: Grim Reaper
+  category: valid
+  container: valid
+  instructions: Mix Kahlua and 151 in glass. Quickly add ice and pour grenadine over ice to give ice red tint.
+  image_url: some_url
+
+three:
+  name: Ban Vlorg
+  category: valid
+  container: valid
+  instructions: Mix Kahlua and 151 in glass. Quickly add ice and pour grenadine over ice to give ice red tint.
+  image_url: some_url

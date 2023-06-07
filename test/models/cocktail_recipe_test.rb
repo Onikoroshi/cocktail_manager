@@ -79,4 +79,13 @@ class CocktailRecipeTest < ActiveSupport::TestCase
 
     assert_equal CocktailRecipe.to_json, expected_hash
   end
+
+  test "using the search function returns the correct results" do
+    assert_includes CocktailRecipe.search("van"), cocktail_recipes(:valid)
+    refute_includes CocktailRecipe.search("van"), cocktail_recipes(:two)
+
+    assert_includes CocktailRecipe.search("an vL"), cocktail_recipes(:valid)
+    assert_includes CocktailRecipe.search("an vL"), cocktail_recipes(:three)
+    refute_includes CocktailRecipe.search("an vL"), cocktail_recipes(:two)
+  end
 end

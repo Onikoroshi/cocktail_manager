@@ -8,6 +8,8 @@ class CocktailRecipe < ApplicationRecord
   validates :instructions, presence: true
   validates :image_url, presence: true
 
+  scope :search, ->(search_value) { where("cocktail_recipes.name ILIKE '%#{search_value}%'") }
+
   def self.to_json
     {
       drinks: self.all.map do |cocktail_recipe|
