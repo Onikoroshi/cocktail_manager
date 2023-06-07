@@ -4,11 +4,4 @@ class IngredientMeasure < ApplicationRecord
 
   validates :name, presence: true
   validates :measurement, presence: true
-
-  def as_json(options = {})
-    {
-      name: name,
-      measurement: measurement
-    }
-  end
 end

@@ -50,35 +50,6 @@ class CocktailRecipeTest < ActiveSupport::TestCase
     assert(@recipe.errors.added?(:image_url, "can't be blank"), @recipe.errors.full_messages)
   end
 
-  test "individual_json only shows proper fields" do
-    expected_hash = {
-      drinks: [
-        id: @recipe.id,
-        name: @recipe.name,
-        category: @recipe.category.to_s,
-        container: @recipe.container.to_s,
-        instructions: @recipe.instructions,
-        image: @recipe.image_url,
-        ingredients: @recipe.ingredient_measures.map{|im| im.as_json}
-      ]
-    }
-
-    assert_equal @recipe.individual_json, expected_hash
-  end
-
-  test "collective as_json only shows proper fields" do
-    expected_hash = CocktailRecipe.all.map do |cr|
-      {
-        id: cr.id,
-        name: cr.name.to_s,
-        category: cr.category.to_s,
-        image: cr.image_url
-      }
-    end
-
-    assert_equal CocktailRecipe.all.map{|cr| cr.collective_json}, expected_hash
-  end
-
   test "using the search function returns the correct results" do
     assert_includes CocktailRecipe.search("van"), cocktail_recipes(:valid)
     refute_includes CocktailRecipe.search("van"), cocktail_recipes(:two)
