@@ -32,29 +32,27 @@ class IngredientMeasureTest < ActiveSupport::TestCase
     assert(@ingredient.errors.added?(:cocktail_recipe, "must exist"), @ingredient.errors.full_messages)
   end
 
-  test "individual to_json only shows proper fields" do
+  test "individual as_json only shows proper fields" do
     expected_hash = {
       name: @ingredient.name,
       measurement: @ingredient.measurement
     }
 
-    assert_equal @ingredient.to_json, expected_hash
+    assert_equal @ingredient.as_json, expected_hash
   end
 
-  test "collective to_json only shows proper fields" do
-    expected_array = IngredientMeasure.all.map{|im| im.to_json}
+  test "collective as_json only shows proper fields" do
+    expected_array = IngredientMeasure.as_json
 
-    assert_equal IngredientMeasure.to_json, expected_array
+    assert_equal IngredientMeasure.as_json, expected_array
   end
 
-  # test "collective to_json works on individual collections too" do
-  #   recipe = cocktail_recipes(:valid)
-  #
-  #   collective = recipe.ingredient_measures.to_json
-  #   ap collective
-  #   using_map = recipe.ingredient_measures.map{|im| im.to_json}
-  #   ap using_map
-  #
-  #   assert_equal collective, using_map
-  # end
+  test "collective as_json works on individual collections too" do
+    recipe = cocktail_recipes(:valid)
+
+    collective = recipe.ingredient_measures.as_json
+    using_map = recipe.ingredient_measures.map{|im| im.as_json}
+
+    assert_equal collective, using_map
+  end
 end

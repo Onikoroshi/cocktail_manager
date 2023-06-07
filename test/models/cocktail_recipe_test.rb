@@ -50,21 +50,23 @@ class CocktailRecipeTest < ActiveSupport::TestCase
     assert(@recipe.errors.added?(:image_url, "can't be blank"), @recipe.errors.full_messages)
   end
 
-  test "individual to_json only shows proper fields" do
+  test "individual as_json only shows proper fields" do
     expected_hash = {
-      id: @recipe.id,
-      name: @recipe.name,
-      category: @recipe.category.to_s,
-      container: @recipe.container.to_s,
-      instructions: @recipe.instructions,
-      image: @recipe.image_url,
-      ingredients: @recipe.ingredient_measures.map{|im| im.to_json}
+      drinks: [
+        id: @recipe.id,
+        name: @recipe.name,
+        category: @recipe.category.to_s,
+        container: @recipe.container.to_s,
+        instructions: @recipe.instructions,
+        image: @recipe.image_url,
+        ingredients: @recipe.ingredient_measures.map{|im| im.as_json}
+      ]
     }
 
-    assert_equal @recipe.to_json, expected_hash
+    assert_equal @recipe.as_json, expected_hash
   end
 
-  test "collective to_json only shows proper fields" do
+  test "collective as_json only shows proper fields" do
     expected_hash = {
       drinks:
         CocktailRecipe.all.map do |cr|
@@ -77,7 +79,7 @@ class CocktailRecipeTest < ActiveSupport::TestCase
         end
     }
 
-    assert_equal CocktailRecipe.to_json, expected_hash
+    assert_equal CocktailRecipe.as_json, expected_hash
   end
 
   test "using the search function returns the correct results" do
