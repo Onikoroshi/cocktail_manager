@@ -49,4 +49,34 @@ class CocktailRecipeTest < ActiveSupport::TestCase
     assert @recipe.invalid?
     assert(@recipe.errors.added?(:image_url, "can't be blank"), @recipe.errors.full_messages)
   end
+
+  test "individual to_json only shows proper fields" do
+    expected_hash = {
+      id: @recipe.id,
+      name: @recipe.name,
+      category: @recipe.category.to_s,
+      container: @recipe.container.to_s,
+      instructions: @recipe.instructions,
+      image: @recipe.image_url,
+      ingredients: @recipe.ingredient_measures.map{|im| im.to_json}
+    }
+
+    assert_equal @recipe.to_json, expected_hash
+  end
+
+  test "collective to_json only shows proper fields" do
+    expected_hash = {
+      drinks:
+        CocktailRecipe.all.map do |cr|
+          {
+            id: cr.id,
+            name: cr.name.to_s,
+            category: cr.category.to_s,
+            image: cr.image_url
+          }
+        end
+    }
+
+    assert_equal CocktailRecipe.to_json, expected_hash
+  end
 end
